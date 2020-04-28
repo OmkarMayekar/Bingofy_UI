@@ -5,9 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*background-image: url("/RedOcean.jpg");*/
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+label{
+	font-size: 18px;
+	font-style: oblique;
+	font-weight: bold;
+    font-family: cursive;
 }
