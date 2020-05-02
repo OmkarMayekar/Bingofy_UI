@@ -5,8 +5,12 @@ class UtilityService {
         var tokenForHeaderAfterStringify = JSON.stringify(tokenForHeader);
         var cleanString = tokenForHeaderAfterStringify.replace(/\\/g, "");
         var cleanedToken = cleanString.replace(/""/g,"");
-        console.log("cleaned Token is : "+cleanedToken);
         return cleanedToken;
+    }
+
+    async getLoggedInUsername(){
+        var loggedInUsername = window.sessionStorage.getItem("LoggedInUsername");
+		return loggedInUsername;
     }
 }
 

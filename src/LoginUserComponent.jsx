@@ -37,6 +37,7 @@ class LoginUserComponent extends Component{
                                jwtToken = res.headers.authorization
                         }
                         window.sessionStorage.setItem("LoginResponse", JSON.stringify(jwtToken));
+                        window.sessionStorage.setItem("LoggedInUsername", JSON.stringify(this.state.username));
                         var cleanedToken = await UtilityService.getLocalStorageToken();
                         var responseCode = res.status;
                         console.log("responseCode for login is : "+responseCode);
@@ -84,7 +85,7 @@ class LoginUserComponent extends Component{
                     <input type="password" placeholder="password" className = "input"  name="password" value={this.state.password} onChange={this.onChange} required/>
                 </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isPasswordValid == false ? "Password is manditory" : ""}</div>
-                <button className="btn btn-success" style={{marginRight: '-115px'}} onClick={this.loginUser}>Login!</button>
+                <button className="btn btn-dark" style={{marginRight: '50%',marginLeft: '50%',marginTop: '2%'}} onClick={this.loginUser}>Login!</button>
                 </div>
                 </form>
             </div>

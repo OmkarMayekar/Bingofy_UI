@@ -106,7 +106,7 @@ class RegisterUserComponent extends Component{
                     <input placeholder="role" name="role" className = "input"  value={this.state.role} onChange={this.onChange} required/>
                 </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isRoleValid == false ? "Role is manditory" : ""}</div>
-                <button className="btn btn-success" style={{marginRight: '-115px'}} onClick={this.saveUser}>Register!</button>
+                <button className="btn btn-dark" style={{marginRight: '50%',marginLeft: '50%',marginTop: '2%'}} onClick={this.saveUser}>Register!</button>
                 </div>
                 </form>
             </div>

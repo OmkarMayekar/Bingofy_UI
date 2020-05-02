@@ -1,23 +1,12 @@
 import axios from 'axios';
-
-const USER_API_BASE_URL = 'http://localhost:8082/registration/demo';
+import request from 'request';
+import promise from 'promise';
+import UtilityService from "./UtilityService";
 
 class ApiService {
 
-    fetchUsers() {
-        return axios.get(USER_API_BASE_URL);
-    }
-
-    fetchUserById(userId) {
-        return axios.get(USER_API_BASE_URL + '/' + userId);
-    }
-
-    deleteUser(userId) {
-        return axios.delete(USER_API_BASE_URL + '/' + userId);
-    }
-
     addUser(user) {
-        return axios.post('http://localhost:9090/registration', {
+        return axios.post('/registration', {
         email_address :  user.email,
         username : user.username,
         password : user.password,
@@ -32,10 +21,40 @@ class ApiService {
       });
     }
 
-    editUser(user) {
-        return axios.put(USER_API_BASE_URL + '/' + user.id, user);
+    async addUsersToList(inputObjectOfAddUserToList) {
+        console.log("Input Object Of AddUserToList value is :: "+JSON.stringify(inputObjectOfAddUserToList));
+        return new Promise(async function(resolve, reject) {
+            var data = {
+                listAccessignUserEmail :  inputObjectOfAddUserToList.array,
+                email : inputObjectOfAddUserToList.email
+            }
+            const headers = {
+              'Authorization': inputObjectOfAddUserToList.jwtToken
+            }
+            var response = await axios.post('/operations/addUserToMyList', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
     }
 
+    async getUserGrantAccessList(username){
+        console.log("username is :: "+username);
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken===>"+jwtToken);
+        return new Promise(async function(resolve, reject) {
+            var data = {
+                username :  username
+            }
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var response = await axios.post('/operations/getUserGrantAccessList', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
 }
-
 export default new ApiService();
