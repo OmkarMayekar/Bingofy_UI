@@ -1,4 +1,5 @@
 import React from 'react';
+import {Helmet} from "react-helmet";
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListUserComponent from "./ListUserComponent";
@@ -9,7 +10,8 @@ import Recipe from "./Recipes.jsx";
 import Home from "./home.jsx";
 import Login from "./LoginUserComponent";
 import AddUserToList from "./AddUserToList";
-import {Helmet} from "react-helmet";
+import AddItemsToList from "./AddItemsToList";
+
 let imgUrl = '/RedOcean.jpg'; 
 class App extends React.Component {
 	render() {
@@ -26,6 +28,7 @@ class App extends React.Component {
                     <Route path="/register-user" component={RegisterUserComponent} />
                     <Route path="/login-user" component={Login} />
                     <Route path="/recipes" component={Recipe} />
+                    <Route path="/add-items" component={AddItemsToList} />
                 </Switch>
         </Router>
 	   </div>

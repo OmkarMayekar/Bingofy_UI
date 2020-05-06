@@ -56,5 +56,43 @@ class ApiService {
             resolve(response);
         });
     }
+
+    async assignExtraAttributesForItems(assignExtraAttributesForItemsInput){
+        console.log("assignExtraAttributesForItemsInput is :: "+JSON.stringify(assignExtraAttributesForItemsInput));
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken===>"+jwtToken);
+        return new Promise(async function(resolve, reject) {
+            var data = {
+                username :  assignExtraAttributesForItemsInput.username,
+                json : assignExtraAttributesForItemsInput.JsonOBJ
+            }
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var response = await axios.post('/inventories/assignExtraAttributesForItems', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
+    async getAllExtraInventoryAttributes(username){
+        console.log("getAllExtraInventoryAttributesInput is :: "+username);
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken===>"+jwtToken);
+        return new Promise(async function(resolve, reject) {
+            var data = {
+                username :  username
+            }
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var response = await axios.post('/inventories/getAllExtraInventoryAttributes', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
 }
 export default new ApiService();

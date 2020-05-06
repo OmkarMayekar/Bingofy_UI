@@ -16,11 +16,12 @@ class NavigationBar extends Component {
 				<Navbar.Brand href="#home">Bingofy</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav className="mr-auto">
+					<Nav className="mr-auto" style={{fontFamily:'cursive'}}>
 						<Nav.Link href="/">Home</Nav.Link>
 						<Nav.Link href="/register-user">Register User</Nav.Link>
 						<Nav.Link href="/add-user">Add User To List</Nav.Link>
 						<Nav.Link href="/login-user">Login</Nav.Link>
+						<Nav.Link href="/add-items">Add Items To List</Nav.Link>
 						<NavDropdown title="Others" id="basic-nav-dropdown">
 							<NavDropdown.Item href="/recipes">Recipes</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.2">Notes</NavDropdown.Item>

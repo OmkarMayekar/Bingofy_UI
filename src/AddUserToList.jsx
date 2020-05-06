@@ -134,12 +134,12 @@ class AddUserToList extends Component
                 <div>
                 <div className="form-group">
                     <label style={{marginRight: '64px'}}>Please enter email of the users to be added  </label><label>:</label><label>&nbsp;&nbsp;</label>
-                    <input type="text" placeholder="email" name="emailField" id="email" data-tip="Please enter correct emails" onChange={this.onChange}/>
+                    <input type="text" placeholder="email" className="input" name="emailField" id="email" data-tip="Please enter correct emails" onChange={this.onChange}/>
                 </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isUserNameValid == false ? "Username is manditory" : ""}</div>
                 <div className="form-group">
                     <label style={{marginRight: '90px'}}>Specify email of the user sharing it's list  </label><label>:</label><label>&nbsp;&nbsp;</label>
-                    <input type="text" placeholder="email" name="emailField" id="sharingUser" onChange={this.onChange}/>
+                    <input type="text" placeholder="email" className="input" name="emailField" id="sharingUser" onChange={this.onChange}/>
                 </div>
                 <a href="#"className="btn btn-secondary" onClick={this.getListOfUsersSharingList} style={{marginTop: '90px'}}>Show users sharing my list</a><label>&nbsp;&nbsp;&nbsp;&nbsp;</label><a href="#"className="btn btn-dark" onClick={this.validateEmailFieldValues} style={{marginTop: '90px'}}>Share My List</a>
                 </div>
