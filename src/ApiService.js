@@ -1,5 +1,4 @@
 import axios from 'axios';
-import request from 'request';
 import promise from 'promise';
 import UtilityService from "./UtilityService";
 

@@ -1,8 +1,8 @@
-import React,{Fragment,Component} from 'react';
+import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Button, CardTitle, CardText, CardImg,CardBody,Row, Col } from 'reactstrap';
+import { Button, CardTitle,CardImg,Row, Col } from 'reactstrap';
 import AttributePopup from "./AttributesPopUp";
 import Typography from '@material-ui/core/Typography';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -56,9 +56,12 @@ class MyCard extends React.Component{
       let getAllItemsInput = {username : cleanedloggedInUsername};
       var globalItemList = null;
       await ApiService.getAllItems(getAllItemsInput).then(async function(data){
-            console.log("getAllItems Response in componentDidMount ====> ", JSON.stringify(data.data.data.itemslist));
-            globalItemList = data.data.data.itemslist;
-            console.log("Items in componentDidMount ====> ",globalItemList);
+            if(data.data.data)
+            {
+              console.log("getAllItems Response in componentDidMount ====> ", JSON.stringify(data.data.data.itemslist));
+              globalItemList = data.data.data.itemslist;
+              console.log("Items in componentDidMount ====> ",globalItemList);
+            }
       });
       this.setState({globalItemListArray : globalItemList});
   }
@@ -166,9 +169,9 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-          {<div>{console.log("a ===>",this.state.globalItemListArray)}</div>}
-          {this.state.globalItemListArray.includes("Apple") == false ? <Button id ="myButton1" className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Apple","myButton1")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Apple") == true ? <Button id ="myButton1d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Apple","myButton1d","myButton1")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+          {<div>{console.log("a ===>",this.state.globalItemListArray && this.state.globalItemListArray)}</div>}
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Apple") == false ? <Button id ="myButton1" className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Apple","myButton1")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Apple") == true ? <Button id ="myButton1d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Apple","myButton1d","myButton1")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Apple" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Apple") ? <AttributePopup callingElement={this.state.callingElement} changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card>
@@ -202,8 +205,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Orange") == false ? <Button id ="myButton2"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Orange","myButton2")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Orange") == true ? <Button id ="myButton2d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Orange","myButton2d","myButton2")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Orange") == false ? <Button id ="myButton2"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Orange","myButton2")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Orange") == true ? <Button id ="myButton2d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Orange","myButton2d","myButton2")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Orange" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Orange")? <AttributePopup callingElement={this.state.callingElement} changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card>
@@ -237,8 +240,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Mango") == false ? <Button id ="myButton3"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Mango","myButton3")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Mango") == true ? <Button id ="myButton3d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Mango","myButton3d","myButton3")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Mango") == false ? <Button id ="myButton3"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Mango","myButton3")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Mango") == true ? <Button id ="myButton3d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Mango","myButton3d","myButton3")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Mango" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Mango") ? <AttributePopup callingElement={this.state.callingElement} changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -271,8 +274,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-             {this.state.globalItemListArray.includes("Peach") == false ? <Button id ="myButton4"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Peach","myButton4")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-            {this.state.globalItemListArray.includes("Peach") == true ? <Button id ="myButton4d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Peach","myButton4d","myButton4")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+             {this.state.globalItemListArray && this.state.globalItemListArray.includes("Peach") == false ? <Button id ="myButton4"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Peach","myButton4")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+            {this.state.globalItemListArray && this.state.globalItemListArray.includes("Peach") == true ? <Button id ="myButton4d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Peach","myButton4d","myButton4")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
             <Button id ="myButton1d"  value="Peach" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Peach") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
           </Card><div className={this.classes.root}>
@@ -305,8 +308,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Cherry") == false ? <Button id ="myButton5"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Cherry","myButton5")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Cherry") == true ? <Button id ="myButton5d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Cherry","myButton5d","myButton5")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Cherry") == false ? <Button id ="myButton5"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Cherry","myButton5")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Cherry") == true ? <Button id ="myButton5d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Cherry","myButton5d","myButton5")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Cherry"  className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Cherry") ? <AttributePopup  callingElement={this.state.callingElement} changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -339,8 +342,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Grape") == false ? <Button id ="myButton6"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Grape","myButton6")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Grape") == true ? <Button id ="myButton6d" className="btn btn-outline-dark"  onClick={(e) => {this.removeItemFromArray("Grape","myButton6d","myButton6")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Grape") == false ? <Button id ="myButton6"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Grape","myButton6")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Grape") == true ? <Button id ="myButton6d" className="btn btn-outline-dark"  onClick={(e) => {this.removeItemFromArray("Grape","myButton6d","myButton6")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Grape" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true  && this.state.callingElement=="Grape") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -373,8 +376,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Banana") == false ? <Button id ="myButton7"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Banana","myButton7")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Banana") == true ? <Button id ="myButton7d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Banana","myButton7d","myButton7")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Banana") == false ? <Button id ="myButton7"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Banana","myButton7")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Banana") == true ? <Button id ="myButton7d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Banana","myButton7d","myButton7")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Banana" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Banana") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -407,8 +410,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-             {this.state.globalItemListArray.includes("Wattermelon") == false ? <Button id ="myButton8"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Watermelon","myButton8")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-            {this.state.globalItemListArray.includes("Wattermelon") == true ? <Button id ="myButton8d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Watermelon","myButton8d","myButton8")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+             {this.state.globalItemListArray && this.state.globalItemListArray.includes("Wattermelon") == false ? <Button id ="myButton8"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Watermelon","myButton8")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+            {this.state.globalItemListArray && this.state.globalItemListArray.includes("Wattermelon") == true ? <Button id ="myButton8d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Watermelon","myButton8d","myButton8")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
             <Button id ="myButton1d" value="Watermelon" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Watermelon") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
           </Card><div className={this.classes.root}>
@@ -441,8 +444,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Strawberry") == false ? <Button id ="myButton9"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Strawberry","myButton9")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Strawberry") == true ? <Button id ="myButton9d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Strawberry","myButton9d","myButton9")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Strawberry") == false ? <Button id ="myButton9"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Strawberry","myButton9")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Strawberry") == true ? <Button id ="myButton9d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Strawberry","myButton9d","myButton9")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Strawberry" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true  && this.state.callingElement=="Strawberry")? <AttributePopup callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -475,8 +478,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Guava") == false ? <Button id ="myButton10"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Guava","myButton10")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Guava") == true ? <Button id ="myButton10d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Guava","myButton10d","myButton10")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Guava") == false ? <Button id ="myButton10"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Guava","myButton10")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Guava") == true ? <Button id ="myButton10d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Guava","myButton10d","myButton10")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Guava" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Guava") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -509,8 +512,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-          {this.state.globalItemListArray.includes("Kiwi") == false ?  <Button id ="myButton11"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Kiwi","myButton11")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Kiwi") == true ? <Button id ="myButton11d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Kiwi","myButton11d","myButton11")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Kiwi") == false ?  <Button id ="myButton11"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Kiwi","myButton11")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Kiwi") == true ? <Button id ="myButton11d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Kiwi","myButton11d","myButton11")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Kiwi"  className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Kiwi") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -543,8 +546,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-             {this.state.globalItemListArray.includes("Raspberry") == false ? <Button id ="myButton12"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Raspberry","myButton12")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-            {this.state.globalItemListArray.includes("Raspberry") == true ? <Button id ="myButton12d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Raspberry","myButton12d","myButton12")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+             {this.state.globalItemListArray && this.state.globalItemListArray.includes("Raspberry") == false ? <Button id ="myButton12"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Raspberry","myButton12")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+            {this.state.globalItemListArray && this.state.globalItemListArray.includes("Raspberry") == true ? <Button id ="myButton12d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Raspberry","myButton12d","myButton12")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
             <Button id ="myButton1d" value="Raspberry" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
             {(this.state.showExtraFields == true && this.state.callingElement=="Raspberry") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
           </Card><div className={this.classes.root}>
@@ -577,8 +580,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Apricot") == false ? <Button id ="myButton13"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Apricot","myButton13")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Apricot") == true ?  <Button id ="myButton13d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Apricot","myButton13d","myButton13")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Apricot") == false ? <Button id ="myButton13"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Apricot","myButton13")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Apricot") == true ?  <Button id ="myButton13d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Apricot","myButton13d","myButton13")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
            <Button id ="myButton1d" value="Apricot" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
             {(this.state.showExtraFields == true && this.state.callingElement=="Apricot") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -611,8 +614,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Fig") == false ? <Button id ="myButton14"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Fig","myButton14")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Fig") == true ? <Button id ="myButton14d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Fig","myButton14d","myButton14")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Fig") == false ? <Button id ="myButton14"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Fig","myButton14")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Fig") == true ? <Button id ="myButton14d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Fig","myButton14d","myButton14")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Fig" className="btn btn-outline-dark"  onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Fig") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -645,8 +648,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Lemon") == false ? <Button id ="myButton15"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Lemon","myButton15")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Lemon") == true ? <Button id ="myButton15d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Lemon","myButton15d","myButton15")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Lemon") == false ? <Button id ="myButton15"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Lemon","myButton15")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Lemon") == true ? <Button id ="myButton15d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Lemon","myButton15d","myButton15")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Lemon" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Lemon") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -679,8 +682,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-             {this.state.globalItemListArray.includes("Papaya") == false ? <Button id ="myButton16"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Papaya","myButton16")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-            {this.state.globalItemListArray.includes("Papaya") == true ? <Button id ="myButton16d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Papaya","myButton16d","myButton16")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+             {this.state.globalItemListArray && this.state.globalItemListArray.includes("Papaya") == false ? <Button id ="myButton16"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Papaya","myButton16")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+            {this.state.globalItemListArray && this.state.globalItemListArray.includes("Papaya") == true ? <Button id ="myButton16d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Papaya","myButton16d","myButton16")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
             <Button id ="myButton1d" value="Papaya" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true  && this.state.callingElement=="Papaya")? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
           </Card><div className={this.classes.root}>
@@ -713,8 +716,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Pomegranate") == false ? <Button id ="myButton17"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Pomegranate","myButton17")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Pomegranate") == true ? <Button id ="myButton17d" className="btn btn-outline-dark"  onClick={(e) => {this.removeItemFromArray("Pomegranate","myButton17d","myButton17")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Pomegranate") == false ? <Button id ="myButton17"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Pomegranate","myButton17")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Pomegranate") == true ? <Button id ="myButton17d" className="btn btn-outline-dark"  onClick={(e) => {this.removeItemFromArray("Pomegranate","myButton17d","myButton17")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Pomegranate" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true  && this.state.callingElement=="Pomegranate")? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -747,8 +750,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Plum") == false ? <Button id ="myButton18"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Plum","myButton18")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Plum") == true ? <Button id ="myButton18d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Plum","myButton18d","myButton18")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Plum") == false ? <Button id ="myButton18"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Plum","myButton18")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Plum") == true ? <Button id ="myButton18d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Plum","myButton18d","myButton18")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Plum" className="btn btn-outline-dark"  onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Plum") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -781,8 +784,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-           {this.state.globalItemListArray.includes("Passionfruit") == false ? <Button id ="myButton19"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Passionfruit","myButton19")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-          {this.state.globalItemListArray.includes("Passionfruit") == true ? <Button id ="myButton19d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Passionfruit","myButton19d","myButton19")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Passionfruit") == false ? <Button id ="myButton19"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Passionfruit","myButton19")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+          {this.state.globalItemListArray && this.state.globalItemListArray.includes("Passionfruit") == true ? <Button id ="myButton19d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Passionfruit","myButton19d","myButton19")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Passionfruit" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
           {(this.state.showExtraFields == true && this.state.callingElement=="Passion") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
         </Card><div className={this.classes.root}>
@@ -815,8 +818,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-             {this.state.globalItemListArray.includes("Coconut") == false ? <Button id ="myButton20"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Coconut","myButton20")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-            {this.state.globalItemListArray.includes("Coconut") == true ? <Button id ="myButton20d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Coconut","myButton20d","myButton20")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+             {this.state.globalItemListArray && this.state.globalItemListArray.includes("Coconut") == false ? <Button id ="myButton20"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Coconut","myButton20")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+            {this.state.globalItemListArray && this.state.globalItemListArray.includes("Coconut") == true ? <Button id ="myButton20d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Coconut","myButton20d","myButton20")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
             <Button id ="myButton1d" value="Coconut" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
             {(this.state.showExtraFields == true && this.state.callingElement=="Coconut") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
           </Card><div className={this.classes.root}>
@@ -849,8 +852,8 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-             {this.state.globalItemListArray.includes("Lychee") == false ? <Button id ="myButton21"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Lychee","myButton21")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
-            {this.state.globalItemListArray.includes("Lychee") == true ? <Button id ="myButton21d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Lychee","myButton21d","myButton21")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
+             {this.state.globalItemListArray && this.state.globalItemListArray.includes("Lychee") == false ? <Button id ="myButton21"  className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Lychee","myButton21")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
+            {this.state.globalItemListArray && this.state.globalItemListArray.includes("Lychee") == true ? <Button id ="myButton21d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Lychee","myButton21d","myButton21")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
             <Button id ="myButton1d" value="Lychee" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
             {(this.state.showExtraFields == true && this.state.callingElement=="Lychee") ? <AttributePopup  callingElement={this.state.callingElement}  changeshowExtraFieldsStateToFalse = {this.changeshowExtraFieldsStateToFalse}/> : null}
           </Card><div className={this.classes.root}>

@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import ApiService from "./ApiService";
-import {messages} from "./messages";
+import React, { Component } from 'react';
 import './App.css';
 
 class Recipes extends Component{

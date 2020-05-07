@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import ApiService from "./ApiService";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
-import '../node_modules/jquery/dist/jquery.min.js'
-import { Navbar, Nav, Form, FormControl, Button, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import '../node_modules/jquery/dist/jquery.min.js';
 class ListUserComponent extends Component {
 	constructor(props) {
 		super(props)

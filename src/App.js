@@ -2,17 +2,15 @@ import React from 'react';
 import {Helmet} from "react-helmet";
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ListUserComponent from "./ListUserComponent";
 import RegisterUserComponent from "./RegisterUserComponent";
-import EditUserComponent from "./EditUserComponent";
 import NavigationBar from "./NavigationBar";
 import Recipe from "./Recipes.jsx";
 import Home from "./home.jsx";
 import Login from "./LoginUserComponent";
 import AddUserToList from "./AddUserToList";
 import AddItemsToList from "./AddItemsToList";
+import ViewMyList from "./ViewMyList.jsx";
 
-let imgUrl = '/RedOcean.jpg'; 
 class App extends React.Component {
 	render() {
   return (
@@ -29,15 +27,12 @@ class App extends React.Component {
                     <Route path="/login-user" component={Login} />
                     <Route path="/recipes" component={Recipe} />
                     <Route path="/add-items" component={AddItemsToList} />
+                    <Route path="/view-items" component={ViewMyList} />
                 </Switch>
         </Router>
 	   </div>
   );
 	}
-}
-const style = {
-    color: 'red',
-    margin: '10px'
 }
 
 export default App;

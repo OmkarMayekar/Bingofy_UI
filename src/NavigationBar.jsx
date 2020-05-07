@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import ApiService from "./ApiService";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 import '../node_modules/jquery/dist/jquery.min.js'
-import { Navbar, Nav, Form, FormControl, Button, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 class NavigationBar extends Component {
 	constructor(props) {
@@ -22,6 +21,7 @@ class NavigationBar extends Component {
 						<Nav.Link href="/add-user">Add User To List</Nav.Link>
 						<Nav.Link href="/login-user">Login</Nav.Link>
 						<Nav.Link href="/add-items">Add Items To List</Nav.Link>
+						<Nav.Link href="/view-items">View My List</Nav.Link>
 						<NavDropdown title="Others" id="basic-nav-dropdown">
 							<NavDropdown.Item href="/recipes">Recipes</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.2">Notes</NavDropdown.Item>

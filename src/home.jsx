@@ -1,6 +1,4 @@
-import React,{ Component, useState } from 'react'
-import ApiService from "./ApiService";
-import {messages} from "./messages";
+import React,{ Component, useState } from 'react';
 import './App.css';
 
 class Home extends Component{
