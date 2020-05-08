@@ -9,9 +9,11 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {ToastsContainer, ToastsStore, ToastsContainerPosition} from 'react-toasts';
 
 import ApiService from "./ApiService";
 import UtilityService from "./UtilityService";
+
 var responseArray = null;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
 }));
+
 
 
 class MyCard extends React.Component{
@@ -51,7 +54,7 @@ class MyCard extends React.Component{
 
   async componentDidMount(){
     console.log("componentDidMount called");
-     var loggedInUsername = await UtilityService.getLoggedInUsername();
+      var loggedInUsername = await UtilityService.getLoggedInUsername();
       var cleanedloggedInUsername = JSON.parse(loggedInUsername);
       let getAllItemsInput = {username : cleanedloggedInUsername};
       var globalItemList = null;
@@ -82,7 +85,7 @@ class MyCard extends React.Component{
     }
     var elem = document.getElementById(id);
     if(elem){
-    if (elem.innerHTML == "Add") {elem.innerHTML = "Added";}}
+    if (elem.innerHTML == "Add") {elem.innerHTML = "Added";ToastsStore.info("Item added to your list!")}}
 
     var removeButtonnId = id+"d";
     if(removeButtonnId)
@@ -160,6 +163,7 @@ class MyCard extends React.Component{
   render(){
   return (
     <Row>
+     <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       <Col sm="6" xs={6} md={4}>
         <Card body style={{fontFamily:'cursive'}}>
         <CardImg top width="100%" src="/apple.png" alt="Card image cap" variant="top"/>
@@ -169,7 +173,6 @@ class MyCard extends React.Component{
               You can add more details to me.
             </Typography>
           </CardContent>
-          {<div>{console.log("a ===>",this.state.globalItemListArray && this.state.globalItemListArray)}</div>}
           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Apple") == false ? <Button id ="myButton1" className="btn btn-outline-dark" onClick={(e) => {this.pushItemToArray("Apple","myButton1")}}>Add</Button> : null }&nbsp;&nbsp;&nbsp;
           {this.state.globalItemListArray && this.state.globalItemListArray.includes("Apple") == true ? <Button id ="myButton1d"  className="btn btn-outline-dark" onClick={(e) => {this.removeItemFromArray("Apple","myButton1d","myButton1")}}>Remove</Button> : null }&nbsp;&nbsp;&nbsp;
           <Button id ="myButton1d" value="Apple" className="btn btn-outline-dark" onClick={(e) => {this.changeshowExtraFieldsState(e)}}>Add More</Button>
