@@ -5,6 +5,7 @@ import UtilityService from "./UtilityService";
 import {messages} from "./messages";
 import PopUp from "./Popup";
 import './App.css';
+import LoginToViewPageWarning from "./LoginToViewPageWarning"; 
 
 var resultOfGetSharingUserList = [];
 var userNames = [];
@@ -22,7 +23,8 @@ class AddUserToList extends Component
             showSharingUsersList : false,
             userNameArray : [],
             userEmailArray : [],
-            showUsers : false
+            showUsers : false,
+            showWarningPage : false
         }
         this.onClose = this.onClose.bind(this);
         this.validateEmailFieldValues = this.validateEmailFieldValues.bind(this);
@@ -36,6 +38,14 @@ class AddUserToList extends Component
 
     onChange = (e) =>
         this.setState({ [e.target.name]: e.target.value});
+
+    async componentDidMount(){
+       var jwtToken = await UtilityService.getLocalStorageToken();
+       if(jwtToken)
+       {
+        this.setState({showWarningPage : true});
+       }
+    }
 
     async validateEmailFieldValues(e){
         e.preventDefault();
@@ -125,7 +135,7 @@ class AddUserToList extends Component
 }
 
     render() {
-    if(this.state.sharingUserEmailInvalid == false && this.state.emailInsideArrayIsInvalid == false && this.state.succesfullPopUpMessage == false && this.state.unsuccessfullPopUpMessage == false && this.state.showUsers == false)
+    if(this.state.sharingUserEmailInvalid == false && this.state.emailInsideArrayIsInvalid == false && this.state.succesfullPopUpMessage == false && this.state.unsuccessfullPopUpMessage == false && this.state.showUsers == false && this.state.showWarningPage == false)
     {
         return(
             <div style={{marginTop: '8%'}}>
@@ -174,6 +184,10 @@ class AddUserToList extends Component
                     </ul>
                 </div>
                 );
+    }
+    if(this.state.showWarningPage == true)
+    {
+        return(<LoginToViewPageWarning/>);
     }
     }
 }

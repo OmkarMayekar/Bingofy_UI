@@ -4,19 +4,27 @@ import UtilityService from "./UtilityService";
 import {messages} from "./messages";
 import PopUp from "./Popup";
 import './App.css';
+import LoginToViewPageWarning from "./LoginToViewPageWarning";
 
 class ViewMyList extends Component{
 
     constructor(props){
         super(props);
         this.state ={
-            globalItemListArray : []
+            showUsers : false,
+            globalItemListArray : [],
+            showWarningPage : false
         }
         this.getListItems = this.getListItems.bind(this);
     }
     async componentDidMount()
     {
-        this.getListItems();
+         this.getListItems();
+         var jwtToken = await UtilityService.getLocalStorageToken();
+         if(jwtToken)
+         {
+          this.setState({showWarningPage : true});
+         }
     }
 
     getListItems =async () => {
@@ -39,7 +47,7 @@ class ViewMyList extends Component{
         this.setState({ [e.target.name]: e.target.value});
 
     render() {
-        if(this.state.globalItemListArray){
+        if(this.state.globalItemListArray && this.state.showWarningPage == false){
         return(
             <div className="list-group" style={{marginLeft:'-10%'}}>
                     <ul style={{fontFamily: 'cursive'}}>
@@ -49,8 +57,10 @@ class ViewMyList extends Component{
                     </ul>
                 </div>
         );
-    }else{
-      return(<div>No Items in List</div>);
+    }
+    if(this.state.showWarningPage == true)
+    {
+        return(<LoginToViewPageWarning/>);
     }
     }
 }

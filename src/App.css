@@ -262,13 +262,7 @@ input:checked + .slider:before {
   border:1px solid #ccc;
   color:#454545 !important;
 }
-/*.button {
-        appearance: button;
-        -moz-appearance: button;
-        -webkit-appearance: button;
-        text-decoration: none; 
-        font: menu; 
-        color: ButtonText;
-        display: inline-block; 
-        padding: 2px 8px;
-    }*/
+.border-bottom-light-gray {
+  border-bottom: 1px solid #e2e2e2
+}
+.padding5 {padding:5px 0;}

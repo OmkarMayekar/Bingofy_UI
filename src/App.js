@@ -10,7 +10,7 @@ import Login from "./LoginUserComponent";
 import AddUserToList from "./AddUserToList";
 import AddItemsToList from "./AddItemsToList";
 import ViewMyList from "./ViewMyList.jsx";
-
+import LoginToViewPageWarning from "./LoginToViewPageWarning";
 class App extends React.Component {
 	render() {
   return (
@@ -28,6 +28,7 @@ class App extends React.Component {
                     <Route path="/recipes" component={Recipe} />
                     <Route path="/add-items" component={AddItemsToList} />
                     <Route path="/view-items" component={ViewMyList} />
+                    <Route path="/warning-page" component={LoginToViewPageWarning} />
                 </Switch>
         </Router>
 	   </div>
