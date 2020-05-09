@@ -62,7 +62,7 @@ render(){
                 <div className="modal-60-attributes">
                     <div className="repeater modal-head">
                         <span>{"Details"}</span>
-                        <a href="javascript:void(0)" onClick={(e)=>{this.props.changeshowExtraFieldsStateToFalse(e)}}></a>
+                        <a href="#" onClick={(e)=>{this.props.changeshowExtraFieldsStateToFalse(e)}}></a>
                     </div>
                     <div className="repeater modal-body">
                         <form>

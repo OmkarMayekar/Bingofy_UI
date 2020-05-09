@@ -10,5 +10,8 @@ export const messages = {
 	USERS_ARE_NOW_SHARING_LIST_BODY : "Users are now sharing list!!",
 	USERS_ARE_NOW_SHARING_LIST : "List sharing successfull!!",
 	LIST_ACCESS_DENIED : "List access denied!!",
-	LIST_ACCESS_DENIED_BODY : "List sharing unsuccessfull!!"
+	LIST_ACCESS_DENIED_BODY : "List sharing unsuccessfull!!",
+	USER_WITH_SAME_USERNAME_ALREADY_EXISTS : "User with same username already exists",
+	USER_WITH_SAME_EMAIL_ALREADY_EXISTS : "User with same e-mail already exists",
+	USER_REGISTERED_UNSUCCESSFULLY : "Registration unsuccessfull"
 }

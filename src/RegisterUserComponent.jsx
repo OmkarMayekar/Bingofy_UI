@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ApiService from "./ApiService";
+import PopUp from "./Popup";
 import {messages} from "./messages";
 import './App.css';
 
@@ -18,7 +19,7 @@ class RegisterUserComponent extends Component{
             isPasswordValid : true,
             isRoleValid : true,
             emailAlreadyExists : false,
-            userNameAlreadyExists : false
+            usernameAlreadyExists : false
         }
         this.saveUser = this.saveUser.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -26,31 +27,28 @@ class RegisterUserComponent extends Component{
     }
     saveUser = (e) => {
         console.log("validating username....");
-        console.log("username state value : "+this.state.username);
         if(this.state.username && this.state.password && this.state.role){
             e.preventDefault();
             let user = {  email: this.state.email, username: this.state.username, password: this.state.password, role: this.state.role};
-            console.log("user object is " + JSON.stringify(user));
             if(this.state.isEmailValid == true){
             ApiService.addUser(user).then((res) => {
                     console.log("response of register is : ",res);
                     var responseCode = res.data.code;
                     console.log("responseCode is : "+responseCode);
-                    console.log("showSuccessPopUp value before setState"+this.state.showSuccessPopUp);
                     if(responseCode == 200){
                         this.setState({showSuccessPopUp : true});
                     }
-                    if(responseCode == 406 && res.data.service_flag == "USER_WITH_SAME_EMAIL_ALREADY_EXISTS"){
+                    if(responseCode == 406 && res.data.data.service_flag == "USER_WITH_SAME_EMAIL_ALREADY_EXISTS"){
                         this.setState({emailAlreadyExists : true});
-                        console.log("email already exists :: "+this.state.emailAlreadyExists);
                     }
-                    console.log("showSuccessPopUp value after setState"+this.state.showSuccessPopUp);
+                    if(responseCode == 406 && res.data.data.service_flag == "USER_WITH_SAME_USERNAME_ALREADY_EXISTS"){
+                        this.setState({usernameAlreadyExists : true});
+                    }
                 });
             }else{
                 return false;
             }
         }else{
-            console.log("username is manditory");
              if(!this.state.username){this.setState({isUserNameValid : false});}
              if(!this.state.password){this.setState({isPasswordValid : false});}
              if(!this.state.role){this.setState({isRoleValid : false});}
@@ -59,7 +57,7 @@ class RegisterUserComponent extends Component{
     }
 
     onClose(){
-        this.setState({showSuccessPopUp : false});
+        this.setState({showSuccessPopUp : false, emailAlreadyExists : false, usernameAlreadyExists : false});
     }
 
     onChange = (e) =>
@@ -68,20 +66,20 @@ class RegisterUserComponent extends Component{
     validateEmail(e){
         console.log("validating e-mail...");
         var emailFieldValue = e.target.value;
-        console.log("emailField"+emailFieldValue);
         this.setState({ [e.target.name]: emailFieldValue });
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         if (reg.test(emailFieldValue) == false) 
         {
-            console.log("e-mail field is invalid");
             this.setState({isEmailValid : false});
         }else{
             this.setState({isEmailValid : true});
         }
     }
 
-    render() {
-        if(this.state.showSuccessPopUp == false){
+    render() 
+    {
+        if(this.state.showSuccessPopUp == false && this.state.emailAlreadyExists == false && this.state.usernameAlreadyExists == false)
+        {
         return(
             <div>
                 <form>
@@ -110,29 +108,36 @@ class RegisterUserComponent extends Component{
                 </div>
                 </form>
             </div>
-        );
-    }
-        if(this.state.showSuccessPopUp == true)
-        {
-            console.log("showSuccessPopUp is now true");
-            return(
-                <div>
-                    <div className="modal-alert-overlay" style={{zIndex:900}} ></div>
-                        <div className="modal-60" style={{width:'25%'}}>
-                        <div className="repeater modal-head">
-                            <span>{"Registeration Successful"}</span>
-                            <a href="javascript:void(0)" onClick={this.onClose}></a>
-                        </div>
-                        <div className="repeater modal-body">
-                            <div>{messages.USER_REGISTERED_SUCCESSFULLY}</div>
-                        </div>
-                        <div className="repeater modal-button">
-                            <a href="" onClick={this.onClose}>{"ok"}</a>
-                        </div>
+            );
+        }
+    if(this.state.showSuccessPopUp == true)
+    {
+        return(
+            <div>
+                <div className="modal-alert-overlay" style={{zIndex:900}} ></div>
+                <div className="modal-60" style={{width:'25%'}}>
+                    <div className="repeater modal-head">
+                        <span>{"Registeration Successful"}</span>
+                        <a href="javascript:void(0)" onClick={this.onClose}></a>
+                    </div>
+                    <div className="repeater modal-body">
+                        <div>{messages.USER_REGISTERED_SUCCESSFULLY}</div>
+                    </div>
+                    <div className="repeater modal-button">
+                        <a href="" onClick={this.onClose}>{"ok"}</a>
                     </div>
                 </div>
-                )
-        }
+            </div>
+                );
+    }
+    if(this.state.emailAlreadyExists == true)
+    {
+            return (<PopUp headerMessage = {messages.USER_REGISTERED_UNSUCCESSFULLY} bodyMessage = {messages.USER_WITH_SAME_EMAIL_ALREADY_EXISTS} onClose={this.onClose}/>);
+    }
+    if(this.state.usernameAlreadyExists == true)
+    {
+            return (<PopUp headerMessage = {messages.USER_REGISTERED_UNSUCCESSFULLY} bodyMessage = {messages.USER_WITH_SAME_USERNAME_ALREADY_EXISTS} onClose={this.onClose}/>);
+    }
     }
 }
 
