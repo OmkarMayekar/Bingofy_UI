@@ -24,7 +24,8 @@ class AddUserToList extends Component
             userNameArray : [],
             userEmailArray : [],
             showUsers : false,
-            showWarningPage : false
+            showWarningPage : false,
+            jwtToken : ''
         }
         this.onClose = this.onClose.bind(this);
         this.validateEmailFieldValues = this.validateEmailFieldValues.bind(this);
@@ -40,12 +41,23 @@ class AddUserToList extends Component
         this.setState({ [e.target.name]: e.target.value});
 
     async componentDidMount(){
-       var jwtToken = await UtilityService.getLocalStorageToken();
-       if(jwtToken)
-       {
-        this.setState({showWarningPage : true});
-       }
+        console.log("componentDidMount called");
+        const jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken in componentDidMount ====> ",jwtToken);
+        console.log("jwtToken in componentDidMount ====> ",typeof jwtToken);
+            if(jwtToken==null || jwtToken=='null' ) 
+            {
+                console.log("jwtToken was null");
+                this.setState({showWarningPage : true});
+            }
+            else
+            {
+                console.log("jwtToke avialble");
+                this.setState({showWarningPage : false});
+            }
+        console.log("componentDidMount ended....");
     }
+
 
     async validateEmailFieldValues(e){
         e.preventDefault();
@@ -135,6 +147,7 @@ class AddUserToList extends Component
 }
 
     render() {
+        console.log("showWarningPage =====> ",this.state.showWarningPage);
     if(this.state.sharingUserEmailInvalid == false && this.state.emailInsideArrayIsInvalid == false && this.state.succesfullPopUpMessage == false && this.state.unsuccessfullPopUpMessage == false && this.state.showUsers == false && this.state.showWarningPage == false)
     {
         return(

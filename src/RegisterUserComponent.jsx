@@ -29,7 +29,7 @@ class RegisterUserComponent extends Component{
         console.log("validating username....");
         if(this.state.username && this.state.password && this.state.role){
             e.preventDefault();
-            let user = {  email: this.state.email, username: this.state.username, password: this.state.password, role: this.state.role};
+            let user = {  email: this.state.email, username: this.state.username, password: this.state.password, role: "NONADMIN"};
             if(this.state.isEmailValid == true){
             ApiService.addUser(user).then((res) => {
                     console.log("response of register is : ",res);
@@ -71,8 +71,20 @@ class RegisterUserComponent extends Component{
         if (reg.test(emailFieldValue) == false) 
         {
             this.setState({isEmailValid : false});
-        }else{
-            this.setState({isEmailValid : true});
+        }
+        else
+        {
+            if(/@bingofy.com\s*$/.test(emailFieldValue))
+            {
+                this.setState({isEmailValid : true});
+                console.log("it ends in @yahoo");
+            }
+            else
+            {
+                this.setState({isEmailValid : false});
+                console.log("it does not ends");
+            }
+            
         }
     }
 
@@ -88,7 +100,7 @@ class RegisterUserComponent extends Component{
                     <label style={{marginRight: '10px'}}>E-Mail Address  </label><label>:</label><label>&nbsp;&nbsp;</label>
                     <input type="email" placeholder="e-mail" name="email" className = "input"  value={this.state.email} onChange={this.validateEmail} required/>
                 </div>
-                <div style={{marginRight: '-104px', color:'red'}}>{this.state.isEmailValid == false ? "Email is Not Valid" : ""}</div>
+                <div style={{marginRight: '-104px', color:'red'}}>{this.state.isEmailValid == false ? <label style={{fontSize : '12px'}}>Email is Not Valid</label> : ""}</div>
                 <div className="form-group">
                     <label style={{marginRight: '64px'}}>Username  </label><label>:</label><label>&nbsp;&nbsp;</label>
                     <input type="text" placeholder="username" className = "input" name="username" value={this.state.username} onChange={this.onChange} required/>
@@ -99,10 +111,6 @@ class RegisterUserComponent extends Component{
                     <input type="password" placeholder="password" className = "input"  name="password" value={this.state.password} onChange={this.onChange} required/>
                 </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isPasswordValid == false ? "Password is manditory" : ""}</div>
-                <div className="form-group">
-                    <label style={{marginRight: '110px'}}>Role  </label><label>:</label><label>&nbsp;&nbsp;</label>
-                    <input placeholder="role" name="role" className = "input"  value={this.state.role} onChange={this.onChange} required/>
-                </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isRoleValid == false ? "Role is manditory" : ""}</div>
                 <button className="btn btn-dark" style={{marginRight: '50%',marginLeft: '50%',marginTop: '2%'}} onClick={this.saveUser}>Register!</button>
                 </div>

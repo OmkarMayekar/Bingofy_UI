@@ -15,13 +15,27 @@ class AddItemsToList extends Component{
             showWarningPage : false,
         }
     }
+
     async componentDidMount(){
-       var jwtToken = await UtilityService.getLocalStorageToken();
-       if(jwtToken)
-       {
-        this.setState({showWarningPage : true});
-       }
+        console.log("componentDidMount called");
+        const jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken in componentDidMount ====> ",jwtToken);
+        console.log("jwtToken in componentDidMount ====> ",typeof jwtToken);
+            if(jwtToken==null || jwtToken=='null' ) 
+            {
+                console.log("jwtToken was null");
+                this.setState({showWarningPage : true});
+            }
+            else
+            {
+                console.log("jwtToke avialble");
+                this.setState({showWarningPage : false});
+            }
+        console.log("componentDidMount ended....");
     }
+
+
+
     onChange = (e) =>
         this.setState({ [e.target.name]: e.target.value});
 
@@ -31,6 +45,10 @@ class AddItemsToList extends Component{
         return(
             <MyCard arrayOfItems={this.state.arrayOfItems} showExtraFields={this.state.showExtraFields}/>
         );
+        }
+        if(this.state.showWarningPage == true)
+        {
+            return(<LoginToViewPageWarning/>);
         }
         if(this.state.showWarningPage == true)
         {

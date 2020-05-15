@@ -41,7 +41,7 @@ class ApiService {
         console.log("username is :: "+username);
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken===>"+jwtToken);
+        //console.log("jwtToken ===> "+jwtToken);
         return new Promise(async function(resolve, reject) {
             var data = {
                 username :  username
@@ -60,7 +60,7 @@ class ApiService {
         console.log("assignExtraAttributesForItemsInput is :: "+JSON.stringify(assignExtraAttributesForItemsInput));
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken===>"+jwtToken);
+        //console.log("jwtToken ===> "+jwtToken);
         return new Promise(async function(resolve, reject) {
             var data = {
                 username :  assignExtraAttributesForItemsInput.username,
@@ -80,7 +80,7 @@ class ApiService {
         console.log("getAllExtraInventoryAttributesInput is :: "+username);
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken===>"+jwtToken);
+        //console.log("jwtToken ===> "+jwtToken);
         return new Promise(async function(resolve, reject) {
             var data = {
                 username :  username
@@ -99,7 +99,7 @@ class ApiService {
         console.log("addNewItemsToUserLists is :: "+JSON.stringify(addNewItemsToUserListInput));
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken===>"+jwtToken);
+        //console.log("jwtToken ===> "+jwtToken);
         return new Promise(async function(resolve, reject) {
             var data = {
                 username : addNewItemsToUserListInput.username,
@@ -119,7 +119,7 @@ class ApiService {
         console.log("removeItemsFromUserList is :: "+JSON.stringify(removeItemsFromUserListInput));
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken===>"+jwtToken);
+        //console.log("jwtToken ===> "+jwtToken);
         return new Promise(async function(resolve, reject) {
             var data = {
                 username : removeItemsFromUserListInput.username,
@@ -135,11 +135,11 @@ class ApiService {
         });
     }
 
-     async getAllItems(getAllItemsInput){
+    async getAllItems(getAllItemsInput){
         console.log("getAllItems input is :: "+JSON.stringify(getAllItemsInput));
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken===>"+jwtToken);
+        //console.log("jwtToken ===> "+jwtToken);
         return new Promise(async function(resolve, reject) {
             var data = {
                 username : getAllItemsInput.username
@@ -148,6 +148,84 @@ class ApiService {
               'Authorization': jwtToken
             }
             var response = await axios.post('/inventories/getAllItems', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
+
+    async addRecipe(addRecipeInput){
+        console.log("addRecipe input is :: "+JSON.stringify(addRecipeInput));
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        //console.log("jwtToken ===> "+jwtToken);
+        return new Promise(async function(resolve, reject) {
+            var data = {
+                username : addRecipeInput.username,
+                recipe_title : addRecipeInput.recipeTitle,
+                recipe_desc : addRecipeInput.recipeDescription,
+                sharing_user_email : addRecipeInput.sharingUserEmail,
+                recipe_type : addRecipeInput.recipeType
+            }
+            console.log("data =====>",data);
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var response = await axios.post('/operations/addRecipe', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
+
+    async getRecipe(getRecipeInput){
+        console.log("getRecipe input is :: "+JSON.stringify(getRecipeInput));
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        //console.log("jwtToken ===> "+jwtToken);
+        return new Promise(async function(resolve, reject) {
+            var data = {
+                username : getRecipeInput.username
+            }
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var response = await axios.post('/operations/getRecipe', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
+
+     async getNonAdminUserList(){
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        //console.log("jwtToken ===> ",jwtToken);
+        return new Promise(async function(resolve, reject) {
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var response = await axios.get('/adminUser/getAllNonAdminUsersInfo', {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
+
+    async sendFeedback(sendFeedbackInput){
+        console.log("sendFeedbackInput ===> ",sendFeedbackInput);
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken ===> ",jwtToken);
+        return new Promise(async function(resolve, reject) {
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var data = {
+                username : sendFeedbackInput.username,
+                feedback : sendFeedbackInput.feedback
+            }
+            var response = await axios.post('/operations/sendFeedback', data, {
                 headers: headers
               });
             resolve(response);

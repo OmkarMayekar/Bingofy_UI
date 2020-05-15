@@ -13,5 +13,10 @@ export const messages = {
 	LIST_ACCESS_DENIED_BODY : "List sharing unsuccessfull!!",
 	USER_WITH_SAME_USERNAME_ALREADY_EXISTS : "User with same username already exists",
 	USER_WITH_SAME_EMAIL_ALREADY_EXISTS : "User with same e-mail already exists",
-	USER_REGISTERED_UNSUCCESSFULLY : "Registration unsuccessfull"
+	USER_REGISTERED_UNSUCCESSFULLY : "Registration unsuccessfull",
+	RECIPE_ADDED_SUCCESSFULLY : "Recipe added successfully",
+	RECIPE_WAS_NOT_ADDED : "Recipe was not added",
+	RECIPE_ADDED_SUCCESSFULLY_BODY : "Thanks For sharing!",
+	FEEBACK_SENT_SUCCESSFULLY : "Feedback sent successfully",
+	FEEBACK_SENT_SUCCESSFULLY_BODY : "Thanks for contacting us!!"
 }

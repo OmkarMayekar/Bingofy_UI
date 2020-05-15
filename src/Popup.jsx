@@ -14,7 +14,7 @@ render(){
     <div className="modal-60" style={{width:'25%'}}>
         <div className="repeater modal-head">
             <span>{this.props.headerMessage}</span>
-                <a href="#" onClick={this.props.onClose}></a>
+                <a href="" onClick={this.props.onClose}></a>
         </div>
         <div className="repeater modal-body">
             <div>{this.props.bodyMessage}</div>

@@ -1,6 +1,7 @@
 class UtilityService {
 
     async getLocalStorageToken(){
+        console.log("getLocalStorageToken called");
         var tokenForHeader = window.sessionStorage.getItem("LoginResponse");
         var tokenForHeaderAfterStringify = JSON.stringify(tokenForHeader);
         var cleanString = tokenForHeaderAfterStringify.replace(/\\/g, "");
