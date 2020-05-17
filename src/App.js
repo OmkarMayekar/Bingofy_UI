@@ -11,9 +11,11 @@ import AddUserToList from "./AddUserToList";
 import AddItemsToList from "./AddItemsToList";
 import ViewMyList from "./ViewMyList.jsx";
 import LoginToViewPageWarning from "./LoginToViewPageWarning";
+import OnlyForAdminWarningPage from "./OnlyForAdminWarning.jsx";
 import ViewRecipe from "./ViewRecipe.jsx";
 import PersonalizedRecipe from "./PersonalizedRecipe.jsx";
-import Feedback from "./Feedback.jsx"
+import Feedback from "./Feedback.jsx";
+import ViewCommonLists from "./ViewCommonLists.jsx"
 class App extends React.Component {
 	render() {
   return (
@@ -35,6 +37,8 @@ class App extends React.Component {
                     <Route path="/personalized-recipes" component={PersonalizedRecipe} />
                     <Route path="/give-feedback" component={Feedback} />
                     <Route path="/warning-page" component={LoginToViewPageWarning} />
+                    <Route path="/only-adminwarning" component={OnlyForAdminWarningPage} />
+                    <Route path="/common-lists" component={ViewCommonLists} />
                 </Switch>
         </Router>
 	   </div>

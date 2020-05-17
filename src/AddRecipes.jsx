@@ -6,7 +6,8 @@ import ReactTooltip from 'react-tooltip';
 import Select from 'react-select';
 import ApiService from "./ApiService";
 import UtilityService from "./UtilityService";
-import LoginToViewPageWarning from "./LoginToViewPageWarning"; 
+import LoginToViewPageWarning from "./LoginToViewPageWarning";
+import OnlyForAdminWarning from "./OnlyForAdminWarning"; 
 import PopUp from "./Popup";
 import {messages} from "./messages";
 
@@ -34,7 +35,9 @@ class AddRecipes extends Component{
              multiValue : [],
              filterOptions : [],
              recipeAddedSuccessfullyPopUp : false,
-             showEmailNotSelectedError : false
+             recipeAddedUnSuccessfullyPopUp : false,
+             showEmailNotSelectedError : false,
+             globalcleanedUsername : '',
         }
         this.onChangeForImage = this.onChangeForImage.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
@@ -58,7 +61,10 @@ class AddRecipes extends Component{
             }
             else
             {
-                console.log("jwtToke avialble");
+                console.log("jwtToken avialble");
+                var username = await UtilityService.getLoggedInUsername();
+                var cleanedUsername = JSON.parse(username);
+                this.setState({globalcleanedUsername : cleanedUsername});
                 await this.getNonAdminUserList();
                 this.setState({showWarningPage : false});
             }
@@ -130,9 +136,13 @@ class AddRecipes extends Component{
                   responseCode = data.data.code;
           });
           console.log("responseCode ===> ",responseCode);
-          if(responseCode == 201)//406
+          if(responseCode == 201)
           {
             this.setState({recipeAddedSuccessfullyPopUp : true});
+          }
+          if(responseCode == 500 || responseCode == 406)
+          {
+            this.setState({recipeAddedUnSuccessfullyPopUp : true});
           }
         }
     }
@@ -157,9 +167,9 @@ class AddRecipes extends Component{
     }
 
 
-    render() {
+  render() {
     const { selectedOption,selectedOptionTargetCountry } = this.state;
-    if(this.state.showWarningPage == false && this.state.recipeAddedSuccessfullyPopUp == false)
+    if(this.state.showWarningPage == false && this.state.recipeAddedSuccessfullyPopUp == false && this.state.globalcleanedUsername == 'admin')
     {
         return(
               <div>
@@ -239,6 +249,14 @@ class AddRecipes extends Component{
     if(this.state.recipeAddedSuccessfullyPopUp == true)
     {
         return (<PopUp headerMessage = {messages.RECIPE_ADDED_SUCCESSFULLY} bodyMessage = {messages.RECIPE_ADDED_SUCCESSFULLY_BODY}/>);
+    }
+    if(this.state.recipeAddedUnSuccessfullyPopUp == true)
+    {
+        return (<PopUp headerMessage = {messages.RECIPE_WAS_NOT_ADDED} bodyMessage = {messages.TRY_AGAIN}/>);
+    }
+    if(this.state.globalcleanedUsername != 'admin')
+    {
+        return (<OnlyForAdminWarning/>);
     }
     }
 }

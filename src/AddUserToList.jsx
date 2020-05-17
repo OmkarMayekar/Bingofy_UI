@@ -62,13 +62,6 @@ class AddUserToList extends Component
     async validateEmailFieldValues(e){
         e.preventDefault();
         var emailString = document.getElementById("email").value;
-        var sharingUserEmail = document.getElementById("sharingUser").value;
-        var validationForSharingUserEmail = this.validateEmail(sharingUserEmail);
-        console.log("sharing user email is :: "+validationForSharingUserEmail);
-        if(validationForSharingUserEmail == "invalid")
-        {
-            this.setState({sharingUserEmailInvalid : true});
-        }
         var array = emailString.split(',');
         console.log("array is :: "+array);
         for(var i =0 ; i < array.length ; i++)
@@ -85,7 +78,10 @@ class AddUserToList extends Component
             var jwtToken = '';
             var responseCode = '';
             jwtToken = await UtilityService.getLocalStorageToken();
-            let inputObjectOfAddUserToList = {array: array, email: sharingUserEmail,jwtToken:jwtToken};
+            var username = await UtilityService.getLoggedInUsername();
+            var cleanedUsername = JSON.parse(username);
+            //let inputObjectOfAddUserToList = {array: array, email: sharingUserEmail,jwtToken:jwtToken};
+            let inputObjectOfAddUserToList = {array: array, email: cleanedUsername+"@bingofy.com",jwtToken:jwtToken};
             await ApiService.addUsersToList(inputObjectOfAddUserToList).then(async function(data){
                 console.log("response of add users to list is :: "+JSON.stringify(data));
                         responseCode = data.data.code;
@@ -160,10 +156,6 @@ class AddUserToList extends Component
                     <input type="text" placeholder="email" className="input" name="emailField" id="email" data-tip="Please enter correct emails" onChange={this.onChange}/>
                 </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isUserNameValid == false ? "Username is manditory" : ""}</div>
-                <div className="form-group">
-                    <label style={{marginRight: '90px'}}>Specify email of the user sharing it's list  </label><label>:</label><label>&nbsp;&nbsp;</label>
-                    <input type="text" placeholder="email" className="input" name="emailField" id="sharingUser" onChange={this.onChange}/>
-                </div>
                 <a href="#"className="btn btn-secondary" onClick={this.getListOfUsersSharingList} style={{marginTop: '90px'}}>Show users sharing my list</a><label>&nbsp;&nbsp;&nbsp;&nbsp;</label><a href="#"className="btn btn-dark" onClick={this.validateEmailFieldValues} style={{marginTop: '90px'}}>Share My List</a>
                 </div>
                 </form>

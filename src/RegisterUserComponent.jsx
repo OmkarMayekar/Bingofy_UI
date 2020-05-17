@@ -27,7 +27,7 @@ class RegisterUserComponent extends Component{
     }
     saveUser = (e) => {
         console.log("validating username....");
-        if(this.state.username && this.state.password && this.state.role){
+        if(this.state.username && this.state.password){
             e.preventDefault();
             let user = {  email: this.state.email, username: this.state.username, password: this.state.password, role: "NONADMIN"};
             if(this.state.isEmailValid == true){
@@ -111,7 +111,6 @@ class RegisterUserComponent extends Component{
                     <input type="password" placeholder="password" className = "input"  name="password" value={this.state.password} onChange={this.onChange} required/>
                 </div>
                 <div style={{marginRight: '-104px', color:'red'}}>{this.state.isPasswordValid == false ? "Password is manditory" : ""}</div>
-                <div style={{marginRight: '-104px', color:'red'}}>{this.state.isRoleValid == false ? "Role is manditory" : ""}</div>
                 <button className="btn btn-dark" style={{marginRight: '50%',marginLeft: '50%',marginTop: '2%'}} onClick={this.saveUser}>Register!</button>
                 </div>
                 </form>

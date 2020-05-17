@@ -34,7 +34,8 @@ class Feedback extends Component{
           feebackDescription : '',
           showWarningPage : false,
           feedbackSubmitted : false,
-          loading : false
+          loading : false,
+          feedbackFailed : false
         }
         this.changeHandler = this.changeHandler.bind(this);
         this.sendFeedback = this.sendFeedback.bind(this);
@@ -83,6 +84,11 @@ class Feedback extends Component{
           this.setState({feedbackSubmitted : true});
           this.hideLoader();
         }
+        if(responseCode == 406)
+        {
+          this.setState({feedbackFailed : true});
+          this.hideLoader();
+        }
       }
 
     }
@@ -126,6 +132,10 @@ class Feedback extends Component{
     if(this.state.feedbackSubmitted == true)
     {
         return (<PopUp headerMessage = {messages.FEEBACK_SENT_SUCCESSFULLY} bodyMessage = {messages.FEEBACK_SENT_SUCCESSFULLY_BODY}/>);
+    }
+    if(this.state.feedbackFailed == true)
+    {
+        return (<PopUp headerMessage = {messages.FEEBACK_SENT_UNSUCCESSFULLY} bodyMessage = {messages.FEEBACK_SENT_UNSUCCESSFULLY_BODY}/>);
     }
     if(this.state.loading == true)
     {

@@ -30,10 +30,10 @@ class NavigationBar extends Component {
 						<Nav.Link href="/add-items">Add Items To List</Nav.Link>
 						<Nav.Link href="/view-items">View My List</Nav.Link>
 						<NavDropdown title="Others" id="basic-nav-dropdown">
+							<NavDropdown.Item href="/common-lists">Shared Lists</NavDropdown.Item>
 							<NavDropdown.Item href="/add-recipes">Add Recipes</NavDropdown.Item>
 							<NavDropdown.Item href="/view-recipes">View Recipes</NavDropdown.Item>
 							<NavDropdown.Item href="/personalized-recipes">Personalized Recipes</NavDropdown.Item>
-							<NavDropdown.Item href="/#Notes">Notes</NavDropdown.Item>
 							<NavDropdown.Divider/>
 							<NavDropdown.Item href="/give-feedback">Feedback</NavDropdown.Item>
 						</NavDropdown>

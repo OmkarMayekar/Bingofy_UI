@@ -216,7 +216,7 @@ class ApiService {
         console.log("sendFeedbackInput ===> ",sendFeedbackInput);
         var jwtToken = '';
         jwtToken = await UtilityService.getLocalStorageToken();
-        console.log("jwtToken ===> ",jwtToken);
+        //console.log("jwtToken ===> ",jwtToken);
         return new Promise(async function(resolve, reject) {
             const headers = {
               'Authorization': jwtToken
@@ -226,6 +226,25 @@ class ApiService {
                 feedback : sendFeedbackInput.feedback
             }
             var response = await axios.post('/operations/sendFeedback', data, {
+                headers: headers
+              });
+            resolve(response);
+        });
+    }
+
+    async viewCommonLists(viewCommonListsInput){
+        console.log("viewCommonListsInput ===> ",viewCommonListsInput);
+        var jwtToken = '';
+        jwtToken = await UtilityService.getLocalStorageToken();
+        console.log("jwtToken ===> ",jwtToken);
+        return new Promise(async function(resolve, reject) {
+            const headers = {
+              'Authorization': jwtToken
+            }
+            var data = {
+                username : viewCommonListsInput.username
+            }
+            var response = await axios.post('/inventories/getAllCommonItems', data, {
                 headers: headers
               });
             resolve(response);

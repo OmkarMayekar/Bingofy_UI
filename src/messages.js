@@ -16,7 +16,10 @@ export const messages = {
 	USER_REGISTERED_UNSUCCESSFULLY : "Registration unsuccessfull",
 	RECIPE_ADDED_SUCCESSFULLY : "Recipe added successfully",
 	RECIPE_WAS_NOT_ADDED : "Recipe was not added",
+	TRY_AGAIN : "Try Again!",
 	RECIPE_ADDED_SUCCESSFULLY_BODY : "Thanks For sharing!",
 	FEEBACK_SENT_SUCCESSFULLY : "Feedback sent successfully",
-	FEEBACK_SENT_SUCCESSFULLY_BODY : "Thanks for contacting us!!"
+	FEEBACK_SENT_SUCCESSFULLY_BODY : "Thanks for contacting us!!",
+	FEEBACK_SENT_UNSUCCESSFULLY : "Feedback was not sent",
+	FEEBACK_SENT_UNSUCCESSFULLY_BODY : "Please try again"
 }
